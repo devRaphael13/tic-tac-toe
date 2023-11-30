@@ -1,8 +1,3 @@
-// Encapsulate the whole game, probably one instance needed
-function Game(single = False) {
-    // let human and computer (that chooses randomly) play.
-}
-
 // Handle board changes
 function Board() {
     let board = [];
@@ -24,7 +19,9 @@ function Board() {
 
 // Decide whose turn it is. Play rounds and stuff.
 function Controller(playerOne) {
-    const board = Board();
+    // const board = Board();
+
+    let board = test;
     let playerTwo = playerOne == "x" ? "o" : "x";
 
     let activePlayer = playerOne;
@@ -32,6 +29,8 @@ function Controller(playerOne) {
     const switchActivePlayer = () => (activePlayer = activePlayer == playerOne ? playerTwo : playerOne);
 
     const getActivePlayer = () => activePlayer;
+
+    const getRandom = () => Math.trunc((Math.random() * 10) % 3);
 
     const play = (row, col) => {
         if (board.get()[row][col] == null) board.mark(getActivePlayer(), row, col);
@@ -44,7 +43,7 @@ function Controller(playerOne) {
         switchActivePlayer();
     };
 
-    return { play };
+    return { play, computerPlay };
 }
 
 // Gets the character of the winning player
