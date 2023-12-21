@@ -1,49 +1,78 @@
+document.addEventListener("DOMContentLoaded", Game);
+
+function Game() {
+    const board = Board();
+    board.createBoard();
+
+    const controller = Controller(board);
+    controller.setPlayers("x", "o");
+    controller.setUpBoard();
+}
+
 // Handle board changes
 function Board() {
     let board = [];
 
-    for (let i = 0; i < 3; i++) {
-        board[i] = [null, null, null];
-    }
+    const createBoard = () => {
+        for (let i = 0; i < 3; i++) {
+            board[i] = [null, null, null];
+        }
+    };
 
-    const get = () => board;
+    const getBoard = () => board;
 
-    const clear = () => {
+    const clearBoard = () => {
         board = board.map((row) => [null, null, null]);
     };
 
-    const mark = (char, row, col) => (board[row][col] = char);
+    const markBoard = (char, row, col) => (board[row][col] = char);
 
-    return { get, clear, mark };
+    return { getBoard, clearBoard, markBoard, createBoard };
 }
 
 // Decide whose turn it is. Play rounds and stuff.
-function Controller(playerOne) {
-    // const board = Board();
+function Controller(board) {
+    let players = {};
+    let activePlayer = null;
+    let roundWinner = null;
 
-    let board = test;
-    let playerTwo = playerOne == "x" ? "o" : "x";
+    const setPlayers = (choice1, choice2) => {
+        players.playerOne = choice1;
+        players.playerTwo = choice2;
+        activePlayer = players.playerOne;
+    };
 
-    let activePlayer = playerOne;
+    const getPlayers = () => players;
 
-    const switchActivePlayer = () => (activePlayer = activePlayer == playerOne ? playerTwo : playerOne);
+    const setUpBoard = () => {
+        const points = document.getElementsByClassName("point");
+
+        for (let point of points) {
+            let cord = point.dataset.cord.split("").map((n) => Number.parseInt(n));
+            point.addEventListener("click", () => {
+                play(...cord);
+            });
+        }
+    };
+
+    const getWinner = () => roundWinner;
+
+    const switchActivePlayer = () => (activePlayer = activePlayer == players.playerOne ? players.playerTwo : players.playerOne);
 
     const getActivePlayer = () => activePlayer;
 
-    const getRandom = () => Math.trunc((Math.random() * 10) % 3);
-
     const play = (row, col) => {
-        if (board.get()[row][col] == null) board.mark(getActivePlayer(), row, col);
+        if (board.getBoard()[row][col] == null) board.markBoard(getActivePlayer(), row, col);
 
-        let winner = Winner(board.get());
+        let winner = Winner(board.getBoard());
         if (winner) {
-            board.clear();
-            return winner;
+            board.clearBoard();
+            roundWinner = winner;
         }
         switchActivePlayer();
     };
 
-    return { play, computerPlay };
+    return { play, getActivePlayer, setPlayers, setUpBoard, getPlayers, getWinner };
 }
 
 // Gets the character of the winning player
