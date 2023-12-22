@@ -120,15 +120,25 @@ function Display() {
         const modal = document.getElementById("scoreDialog");
         const yesBtn = document.getElementById("yes");
         const noBtn = document.getElementById("no");
+        const winnerElem = document.getElementById("winner");
 
+        winnerElem.textContent = winner.split("player").join("Player ").concat(" wins")
         modal.showModal();
-      
+
         yesBtn.addEventListener("click", (e) => {
+            clearDisplay();
             modal.close();
         });
         noBtn.addEventListener("click", (e) => {
+            clearDisplay();
             modal.close();
         });
+    };
+
+    const clearDisplay = () => {
+        for (let point of points) {
+            point.textContent = " ";
+        }
     };
 
     return { display, scoreModal };

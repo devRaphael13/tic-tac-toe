@@ -26,6 +26,11 @@ h1>span {
     color: #ef4444;
 }
 
+h2 {
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
 span {
     font-size: 1.5rem;
     font-weight: 700;
