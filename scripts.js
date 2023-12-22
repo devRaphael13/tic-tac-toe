@@ -1,3 +1,4 @@
+const points = document.getElementsByClassName("point");
 document.addEventListener("DOMContentLoaded", Game);
 
 function Game() {
@@ -5,7 +6,7 @@ function Game() {
     board.createBoard();
 
     const controller = Controller(board);
-    controller.setPlayers("x", "o");
+    controller.setPlayers("X", "O");
     controller.setUpBoard();
 }
 
@@ -34,7 +35,7 @@ function Board() {
 function Controller(board) {
     let players = {};
     let activePlayer = null;
-    let roundWinner = null;
+    let display = Display();
 
     const setPlayers = (choice1, choice2) => {
         players.playerOne = choice1;
@@ -45,8 +46,6 @@ function Controller(board) {
     const getPlayers = () => players;
 
     const setUpBoard = () => {
-        const points = document.getElementsByClassName("point");
-
         for (let point of points) {
             let cord = point.dataset.cord.split("").map((n) => Number.parseInt(n));
             point.addEventListener("click", () => {
@@ -55,7 +54,9 @@ function Controller(board) {
         }
     };
 
-    const getWinner = () => roundWinner;
+    const getWinner = (winner) => {
+        return Object.entries(getPlayers()).filter(([key, value]) => value == winner)[0][0];
+    };
 
     const switchActivePlayer = () => (activePlayer = activePlayer == players.playerOne ? players.playerTwo : players.playerOne);
 
@@ -63,11 +64,12 @@ function Controller(board) {
 
     const play = (row, col) => {
         if (board.getBoard()[row][col] == null) board.markBoard(getActivePlayer(), row, col);
+        display.display(row, col, getActivePlayer());
 
         let winner = Winner(board.getBoard());
         if (winner) {
             board.clearBoard();
-            roundWinner = winner;
+            display.scoreModal(getWinner(winner));
         }
         switchActivePlayer();
     };
@@ -105,4 +107,29 @@ function Winner(board) {
     return res.length > 0 ? res[0] : null;
 }
 
-function Display() {} // Shows the UI.
+// Shows the UI.
+function Display() {
+    const display = (row, col, char) => {
+        let cord = `${row}${col}`;
+        let [ele] = Array.from(points).filter((elem) => elem.dataset.cord == cord);
+
+        ele.textContent = ["X", "O"].includes(ele.textContent) ? ele.textContent : char;
+    };
+
+    const scoreModal = (winner) => {
+        const modal = document.getElementById("scoreDialog");
+        const yesBtn = document.getElementById("yes");
+        const noBtn = document.getElementById("no");
+
+        modal.showModal();
+      
+        yesBtn.addEventListener("click", (e) => {
+            modal.close();
+        });
+        noBtn.addEventListener("click", (e) => {
+            modal.close();
+        });
+    };
+
+    return { display, scoreModal };
+}

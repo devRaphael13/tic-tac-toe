@@ -3,17 +3,15 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="styles.css" />
         <title>Document</title>
     </head>
     <body>
         <h1>Tic-<span>Tac</span>-Toe</h1>
-        <div>
-            <p>Player One &nbsp;&nbsp;<span>1</span> : <span>0</span>&nbsp;&nbsp; Player Two</p>
-        </div>
+
 
         <!-- X or O  -->
-        <dialog></dialog>
+        <!-- <dialog></dialog> -->
 
         <!-- Board -->
         <section id="boardElem">
@@ -29,6 +27,16 @@
             <div class="point" data-cord="21">&nbsp;</div>
             <div class="point" data-cord="22">&nbsp;</div>
         </section>
+
+        <!-- Score, you win  -->
+        <dialog id="scoreDialog">
+            <h2>Player One wins!</h2>
+            <p>Play again!</p>
+            <div>
+                <button id="yes">Yes</button>
+                <button id="no">No</button>
+            </div>
+        </dialog>
         <script src="scripts.js"></script>
     </body>
 </html>

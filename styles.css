@@ -19,25 +19,16 @@ h1,
 h1>span {
     font-weight: 900;
     font-size: 6rem;
+    margin-bottom: 2rem;
 }
 
 h1>span {
     color: #ef4444;
 }
 
-h2 {
-    font-size: 2rem;
-    font-weight: 700;
-}
-
-p,
 span {
     font-size: 1.5rem;
     font-weight: 700;
-}
-
-p {
-    margin-bottom: 2rem;
 }
 
 section {
@@ -50,7 +41,7 @@ section {
 
 section>div {
     padding: 1rem;
-    font-size: 4rem;
+    font-size: 6rem;
     width: 8rem;
     height: 8rem;
     background: #cbd5e1;
@@ -60,4 +51,50 @@ section>div {
     justify-content: center;
     align-items: center;
     border-radius: 0.25rem;
+    color: #0F172A;
+}
+
+dialog {
+    padding: 2.5rem 6rem;
+    border-radius: 0.25rem;
+    background: linear-gradient(45deg, #0F172A 65%, #334155 35%);
+    translate: 100% 100%;
+}
+
+dialog>h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #cbd5e1;
+}
+
+dialog > p {
+    color: #cbd5e1;
+    font-style: italic;
+    font-weight: 500;
+    margin-top: 1.225rem;
+}
+
+
+dialog>div {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 2rem;
+}
+
+dialog button {
+    padding: 0.75rem 2rem;
+    border-radius: 0.25rem;
+    font-size: 1.225rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: #0F172A;
+    width: 100%;
+}
+
+dialog button:first-child {
+    background: green;
+}
+
+dialog button:last-child {
+    background: #ef4444;
 }
